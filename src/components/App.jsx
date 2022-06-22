@@ -14,15 +14,29 @@ export class App extends React.Component {
     {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},],
     filter: '',
   }
-
+  componentDidMount() {
+    
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts })
+    }
+   }
+  componentDidUpdate(prevState) {
+    if (this.state.contacts !== prevState.contacts)
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    console.log('u')
+  }
+  
   formSubmitHandler = data => {
 
     const filterContact = data.name.toLocaleLowerCase();
-    const includeContact = this.state.contacts.filter(contact =>
-      contact.name.toLocaleLowerCase().includes(filterContact));
-    // console.log(includeContact)
-    // console.log(filterContact)
-    if (includeContact.length !== 0){
+   
+    const contactsForFind = this.state.contacts.map((i => i.name.toLocaleLowerCase()))
+
+    const includeContact = contactsForFind.includes(filterContact);
+
+    if (includeContact){
       window.alert(`${data.name} is already in contacts`);
       return
     }
@@ -46,7 +60,6 @@ export class App extends React.Component {
   };
 
   render() {
-    // const { contacts } = this.state.contacts;
     const normalFilter = this.state.filter.toLocaleLowerCase();
     const filterContacts = this.state.contacts.filter(contact =>
       contact.name.toLocaleLowerCase().includes(normalFilter));
