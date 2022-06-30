@@ -3,24 +3,31 @@ import PropTypes from 'prop-types';
 import s from "./ContactList.module.css"
 
 export  const ContactList = ({
-  contacts, onDeleteContact
+  contacts,onDeleteContact
 }) => {
   return <>
     {contacts.map(data =>
       <ul className={s.contact} key={data.id} >
-            <ContactListItem name={data.name} number={data.number} />
-            <button onClick={()=>onDeleteContact(data.id)}>Delete</button>
+        <ContactListItem
+          id={data.id}
+          name={data.name}
+          number={data.number}
+          onDeleteContact={onDeleteContact} />
+            {/* <button onClick={()=>onDeleteContact(data.id)}>Delete</button> */}
       </ul> )}     
     </>
 }
 
 const ContactListItem = ({
+  id,
   name,
   number,
+  onDeleteContact
 }) => {
   return <>
     <li className="item_contact">
-        {name}:{number}
+      {name}:{number}
+      <button onClick={()=>onDeleteContact(id)}>Delete</button>
     </li>
     </>
 }

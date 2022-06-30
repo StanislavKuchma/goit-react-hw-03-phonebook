@@ -25,18 +25,15 @@ export class App extends React.Component {
   componentDidUpdate(prevState) {
     if (this.state.contacts !== prevState.contacts)
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    console.log('u')
-  }
+   }
   
   formSubmitHandler = data => {
 
     const filterContact = data.name.toLocaleLowerCase();
    
-    const contactsForFind = this.state.contacts.map((i => i.name.toLocaleLowerCase()))
+    const contactsForFind = this.state.contacts.find((i => i.name.toLocaleLowerCase() === filterContact));
 
-    const includeContact = contactsForFind.includes(filterContact);
-
-    if (includeContact){
+    if (contactsForFind){
       window.alert(`${data.name} is already in contacts`);
       return
     }
