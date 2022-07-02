@@ -23,7 +23,7 @@ export class Form extends Component {
     render() {
         return <>
           <form onSubmit={this.handleSubmit}>
-          <label htmlFor="">
+          <label>
           Name<br />
               <input style={{ width: 300, height: 40}} value={this.state.name} onChange = {this.handleChange}
                 type="text"
@@ -34,7 +34,7 @@ export class Form extends Component {
             />
           </label>
           <br/>
-          <label htmlFor="">
+          <label>
           Number<br/>
           <input style={{ width: 300, height: 40}} value={this.state.number} onChange = {this.handleChange}
                 type="tel"
